@@ -73,7 +73,6 @@ const CryptoCard = ({
 const CryptocurrencyPrice = () => {
   const [data, setData] = useState<DataType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isFallback, setIsFallback] = useState(false);
 
   useEffect(() => {
     let isActive = true;
@@ -83,12 +82,7 @@ const CryptocurrencyPrice = () => {
 
       if (!isActive) return;
 
-      if (newData) {
-        setData(newData);
-      } else {
-        setData(FALLBACK_DATA);
-        setIsFallback(true);
-      }
+      setData(newData ?? FALLBACK_DATA);
       setIsLoading(false);
     };
 
@@ -111,14 +105,9 @@ const CryptocurrencyPrice = () => {
 
   return (
     <div className="space-y-3">
-      <div className="mb-3">
-        <h3 className="text-base font-semibold text-neutral-800 dark:text-neutral-200 mb-1">
-          Cryptocurrency Prices
-        </h3>
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          USD market data (static)
-        </p>
-      </div>
+      <h3 className="text-base font-semibold text-neutral-800 dark:text-neutral-200">
+        Cryptocurrency Prices
+      </h3>
 
       <div className="space-y-2">
         <CryptoCard
@@ -136,14 +125,6 @@ const CryptocurrencyPrice = () => {
           name="Solana"
           icon="/img/cryptocurrency/solana.png"
         />
-      </div>
-
-      <div className="mt-3 pt-3 border-t border-neutral-200 dark:border-neutral-700">
-        <p className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
-          {isFallback
-            ? "Offline market data — live backend unavailable"
-            : "Prices are served from our own backend"}
-        </p>
       </div>
     </div>
   );
