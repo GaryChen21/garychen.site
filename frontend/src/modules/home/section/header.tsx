@@ -182,6 +182,8 @@ export default function Header() {
               <a
                 href={whatsappUrl()}
                 target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Chat on WhatsApp"
                 className="flex items-center justify-center w-11 h-11 rounded-full bg-white/70 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-700"
               >
                 <TbBrandWhatsapp className="w-5 h-5 text-emerald-500" />
@@ -327,6 +329,8 @@ export default function Header() {
                 <a
                   href={whatsappUrl()}
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Chat on WhatsApp"
                   className={`flex items-center gap-3 group cursor-pointer ${badgePositions[3].isReverse ? "flex-row-reverse" : ""}`}
                 >
                   <motion.div

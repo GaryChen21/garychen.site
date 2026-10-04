@@ -21,7 +21,7 @@ interface ImportMetaEnv {
   // NOTE: Branding/identity, contact info, social URLs, resume paths, the
   // company brand and integration usernames are ALL code-based now:
   //   - src/config/Identity.ts
-  //   - src/config/{Github,Instagram}.ts
+  //   - src/config/Instagram.ts
   // Crypto & social stats are served by the backend (static data).
 }
 

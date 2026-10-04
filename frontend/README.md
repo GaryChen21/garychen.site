@@ -10,7 +10,7 @@ React 19 + TypeScript + Vite single-page app for the portfolio. Branding, identi
 - 🎨 **Tailwind CSS v4** (`@tailwindcss/vite`) + Framer Motion animations, dark/light theme.
 - 🧭 **File-based routing** via `vite-plugin-pages` (`src/pages/*.tsx`).
 - 🔍 **Config-driven SEO** — `<head>`, OpenGraph, Twitter, JSON-LD, `sitemap.xml`, and `robots.txt` are **generated at build time** from `src/config/Head.ts` + `src/config/Identity.ts`.
-- 🤖 **Interactive widgets** — AI assistant, contact form (reCAPTCHA), live GitHub/WakaTime stats, crypto widget.
+- 🤖 **Interactive widgets** — AI assistant, contact form (reCAPTCHA), live WakaTime stats, crypto widget.
 - 🌐 **Fully configurable** — no personal data in component code; identity comes from `src/config/Identity.ts` and only a few `VITE_*` env vars.
 - 🔐 **No secrets in the bundle** — crypto prices and social stats are fetched from *our backend* (static data); integration usernames live in `src/config/*.ts`. No third-party API key ever reaches the browser.
 
@@ -77,7 +77,6 @@ Only a handful of values remain in env — everything else is code-based. See [`
 >
 > | File | Controls |
 > |------|----------|
-> | `src/config/Github.ts` | GitHub username (profile link) |
 > | `src/config/Wakatime.ts` | WakaTime username (profile link) |
 > | `src/config/Instagram.ts` | Instagram username (profile link) |
 > | `src/config/Tiktok.ts` | TikTok username (profile link) |
@@ -97,7 +96,7 @@ Replace the sample content with your own:
 
 ### Integration usernames (`src/config/`)
 
-Public usernames are kept out of env and live in source, since they're not secrets and are edited far less often than env vars: `Github.ts`, `Wakatime.ts`, `Instagram.ts`, `Tiktok.ts`. Secrets for those integrations stay on the **backend**.
+Public usernames are kept out of env and live in source, since they're not secrets and are edited far less often than env vars: `Wakatime.ts`, `Instagram.ts`, `Tiktok.ts`. Secrets for those integrations stay on the **backend**.
 
 ### `<head>` / SEO generation
 
@@ -113,7 +112,7 @@ frontend/
 ├── public/            # static assets (img, pdf, favicon) — sitemap/robots are generated
 ├── src/
 │   ├── components/    # shared UI components
-│   ├── config/        # Identity, Metadata, Head, AppConfig + integration usernames (Github/Wakatime/Instagram/Tiktok)
+│   ├── config/        # Identity, Metadata, Head, AppConfig + integration usernames (Wakatime/Instagram/Tiktok)
 │   ├── context/       # React contexts (theme, container, welcome)
 │   ├── data/          # 📝 your content (projects, career, certificates…)
 │   ├── layouts/       # layout wrappers

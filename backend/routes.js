@@ -3,7 +3,6 @@
  */
 const { processPrompt } = require('./controllers/AIController');
 const { messagingService } = require('./services/ContactHandler');
-const { fetchGithubContributions } = require('./services/Github');
 const { GetWakatime } = require('./services/Wakatime');
 const { getCryptoPrices } = require('./services/Crypto');
 const { getSocialStats } = require('./services/UpdateStats');
@@ -44,15 +43,6 @@ function configureRoutes(app) {
                 status: "error",
                 message: "Failed to send message."
             });
-        }
-    });
-
-    // Github (external API — wrap so upstream errors return JSON, not a crash)
-    app.get("/api/v1/github/contributions", apiLimiter, async (req, res, next) => {
-        try {
-            await fetchGithubContributions(req, res);
-        } catch (error) {
-            next(error);
         }
     });
 

@@ -1,6 +1,6 @@
 # 🖧 Backend — Portfolio API
 
-Node.js + Express API powering the portfolio frontend. Handles the AI assistant, contact form (WhatsApp → Email fallback), and public stats (GitHub / WakaTime / social).
+Node.js + Express API powering the portfolio frontend. Handles the AI assistant, contact form (WhatsApp → Email fallback), and public stats (WakaTime / social).
 
 > 🔗 See the [root README](../README.md) for full-stack setup and configuration.
 
@@ -8,7 +8,7 @@ Node.js + Express API powering the portfolio frontend. Handles the AI assistant,
 
 - 🤖 **AI Chat** — Google Gemini–powered assistant (`@google/genai`), identity from static config (`config/identityConfig.js`).
 - 📬 **Contact Form** — Sends via WhatsApp Cloud API, with automatic Email (SMTP) fallback.
-- 📊 **Public Stats** — GitHub contributions + WakaTime coding stats (with caching/retry).
+- 📊 **Public Stats** — WakaTime coding stats (with caching/retry).
 - 💰 **Static Crypto & Social** — BTC/ETH/SOL prices and TikTok/Instagram follower counts are served from **static, hand-maintained** config files (no third-party API, no key to leak).
 - 🛡️ **Security Hardening** — Helmet, HPP, CORS whitelist, and per-route rate limiting.
 - 🧩 **Maybe unused** — Product & application-key CRUD controllers (optional; require Google Sheets).
@@ -62,7 +62,6 @@ All sensitive data is read from `backend/.env` (gitignored). See [`backend/.env.
 | `EMAIL_RECIPIENT` | ✅ | Receives contact-form notifications |
 | `EMAIL_BUSINESS` | ⬜ | Optional public business email |
 | `APP_ID`, `APP_SECRET`, `RECIPIENT_WAID`, `VERSION`, `PHONE_NUMBER_ID`, `ACCESS_TOKEN` | ⬜ | WhatsApp / Meta Cloud API |
-| `GITHUB_USERNAME`, `GITHUB_TOKEN` | ⬜ | GitHub contribution stats |
 | `WAKATIME_APP_SECRET` | ⬜ | WakaTime stats |
 | `WAKATIME_TIMEOUT_MS`, `WAKATIME_MAX_RETRIES`, `WAKATIME_CACHE_TTL_MS` | ⬜ | WakaTime tuning (defaults 8000 / 2 / 300000) |
 | `GOOGLE_CLIENT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GOOGLE_SHEET_ID`, `SHEET_SECRET_KEY` | ⬜ | Google Sheets (optional) |
@@ -82,7 +81,6 @@ Base URL: `http://localhost:4000`
 |--------|----------|-------------|
 | `POST` | `/api/v1/ai/generate` | AI chat completion |
 | `POST` | `/api/v1/contact/send` | Contact form (WhatsApp → Email) |
-| `GET`  | `/api/v1/github/contributions` | GitHub contribution stats |
 | `GET`  | `/api/v1/wakatime` | WakaTime coding stats (cached) |
 | `GET`  | `/api/v1/crypto` | Static BTC/ETH/SOL prices |
 | `GET`  | `/api/v1/social/stats` | Static TikTok/Instagram stats |
@@ -105,7 +103,7 @@ backend/
 ├── config/           # CORS + static identity/crypto/social data
 ├── controllers/      # AIController (+ optional Product/Application controllers)
 ├── middleware/       # rate limiter, logger, error handler
-├── services/         # ContactHandler, Github, Wakatime, Crypto, UpdateStats
+├── services/         # ContactHandler, Wakatime, Crypto, UpdateStats
 ├── public/           # public routes (no auth)
 ├── index.js          # 🚀 server entry point
 ├── routes.js         # API route definitions

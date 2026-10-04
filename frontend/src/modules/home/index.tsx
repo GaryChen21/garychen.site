@@ -1,12 +1,9 @@
-import { Suspense } from "react";
 import Skills from "./section/skills";
 import About from "./section/about";
 import Header from "./section/header";
 import SubHeader from "./section/subheader";
-import Loading from "@/components/Loading";
 import RecentProjects from "./section/recent-projects";
 import Certification from "./section/certification";
-import ContributionsGithub from "@/components/github/ContributionsGithub";
 import LineWaves from "@/components/LineWaves";
 
 const Home = () => (
@@ -36,9 +33,6 @@ const Home = () => (
             <About />
             <Skills />
             <Certification />
-            <Suspense fallback={<Loading />}>
-                <ContributionsGithub />
-            </Suspense>
         </main>
     </>
 );

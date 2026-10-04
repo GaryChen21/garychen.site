@@ -4,7 +4,7 @@
 
 **A modern, full-stack personal portfolio template** — built with React 19 + Vite (frontend) and Node.js + Express (backend).
 
-AI chatbot · Contact form (WhatsApp + Email) · GitHub & WakaTime stats · Certifications · Projects · Career timeline · Multi-language resume
+AI chatbot · Contact form (WhatsApp + Email) · WakaTime stats · Certifications · Projects · Career timeline · Multi-language resume
 
 > 📦 **This repo uses Git submodules.** `backend/` and `frontend/` are **separate Git repositories** referenced here as [submodules](#-submodules). See [Submodules](#-submodules) for how to clone and work with them.
 
@@ -40,7 +40,7 @@ AI chatbot · Contact form (WhatsApp + Email) · GitHub & WakaTime stats · Cert
 
 - 🤖 **AI Assistant** — Context-aware chatbot (Google Gemini / Groq) that answers questions about you.
 - 📬 **Contact Form** — Sends notifications via WhatsApp Business API with automatic Email (SMTP) fallback.
-- 📊 **Live Stats** — GitHub contribution graph and WakaTime coding activity.
+- 📊 **Live Stats** — WakaTime coding activity.
 - 🎨 **Modern UI** — Tailwind CSS v4, Framer Motion animations, dark/light theme, 3D & Lottie effects.
 - 🗂️ **Portfolio Sections** — Projects, career timeline, certifications, skills, services.
 - 💰 **Crypto Widget** — Static BTC/ETH/SOL prices served by the backend (no third-party API key to leak).
@@ -57,7 +57,7 @@ AI chatbot · Contact form (WhatsApp + Email) · GitHub & WakaTime stats · Cert
 | **Frontend** | React 19, TypeScript, Vite, Tailwind CSS v4, Framer Motion, React Router, react-helmet-async |
 | **Backend**  | Node.js 20, Express, Axios, Nodemailer, Helmet, express-rate-limit                            |
 | **AI**       | `@google/genai` (Gemini), `groq-sdk` (Groq)                                                     |
-| **Services** | WhatsApp Cloud API, Gmail SMTP, GitHub GraphQL, WakaTime, reCAPTCHA |
+| **Services** | WhatsApp Cloud API, Gmail SMTP, WakaTime, reCAPTCHA |
 | **Deploy**   | Vercel (frontend + backend)                                                                     |
 
 ---
@@ -74,7 +74,7 @@ personal-website/               # 📦 umbrella repo (this one — holds only .g
 │   ├── config/                 # CORS + static identity/crypto/social data
 │   ├── controllers/            # AI, Application, Product controllers
 │   ├── middleware/             # rate limiter, logger, error handler
-│   ├── services/               # Contact (WA+Email), GitHub, WakaTime, Crypto, Stats
+│   ├── services/               # Contact (WA+Email), WakaTime, Crypto, Stats
 │   ├── public/                 # public routes
 │   ├── index.js                # 🚀 server entry point
 │   ├── routes.js               # all API routes
@@ -253,7 +253,6 @@ All configuration is done through environment variables. **Never commit your rea
 | `EMAIL_RECIPIENT`       |    ✅    | Email that receives contact form submissions                                 |
 | `EMAIL_BUSINESS`        |    ⬜    | Optional public business email                                              |
 | **WhatsApp / Meta**     |    ⬜    | `APP_ID`, `APP_SECRET`, `RECIPIENT_WAID`, `VERSION`, `PHONE_NUMBER_ID`, `ACCESS_TOKEN` |
-| **GitHub**              |    ⬜    | `GITHUB_USERNAME`, `GITHUB_TOKEN` — https://github.com/settings/tokens      |
 | **WakaTime**            |    ⬜    | `WAKATIME_APP_SECRET` — https://wakatime.com/settings/api                   |
 | `WAKATIME_TIMEOUT_MS`   |    ⬜    | Request timeout in ms (default `8000`)                                      |
 | `WAKATIME_MAX_RETRIES`  |    ⬜    | Retries on transient errors (default `2`)                                   |
@@ -276,7 +275,7 @@ Only a few values remain in env — identity/branding moved into code (`frontend
 | `VITE_RECAPTCHA_SITE_KEY` |    ⬜    | reCAPTCHA **site** key — https://www.google.com/recaptcha/admin   |
 | `VITE_ENABLE_AI`          |    ⬜    | `TRUE` / `FALSE` to toggle AI features                            |
 
-> 📌 **Branding, owner identity, contact, social URLs, resume paths, company brand, site origin and GA ID** are code in [`frontend/src/config/Identity.ts`](frontend/src/config/Identity.ts). Integration usernames live in `src/config/{Github,Wakatime,Instagram,Tiktok}.ts`. **No `VITE_*` API keys exist.**
+> 📌 **Branding, owner identity, contact, social URLs, resume paths, company brand, site origin and GA ID** are code in [`frontend/src/config/Identity.ts`](frontend/src/config/Identity.ts). Integration usernames live in `src/config/{Wakatime,Instagram,Tiktok}.ts`. **No `VITE_*` API keys exist.**
 
 ### Customizing Your Portfolio Content
 
@@ -362,7 +361,6 @@ All endpoints are served under `/api` (backend base URL).
 | -------- | ------------------------------------- | ------------------------------------ |
 | `POST`   | `/api/v1/ai/generate`                 | AI chat completion                   |
 | `POST`   | `/api/v1/contact/send`                | Contact form (WhatsApp → Email)      |
-| `GET`    | `/api/v1/github/contributions`        | GitHub contribution stats            |
 | `GET`    | `/api/v1/wakatime`                    | WakaTime coding stats                |
 | `GET`    | `/api/v1/crypto`                      | Static BTC/ETH/SOL prices            |
 | `GET`    | `/api/v1/social/stats`                | Static TikTok/Instagram stats        |
@@ -426,7 +424,7 @@ Both apps are configured for **Vercel** (`vercel.json` included in each folder).
 | AI not responding                    | Verify `GEMINI_API_KEY` (backend) and `VITE_API_BASE_URL` (frontend).                   |
 | Contact form fails                   | Check `EMAIL_*` / WhatsApp vars; the backend falls back to email if WhatsApp fails.     |
 | `.env` values not applying           | Restart the dev server (env vars are read on startup).                                  |
-| GitHub/WakaTime stats empty          | Set the relevant tokens/usernames in `backend/.env`.                                    |
+| WakaTime stats empty                 | Set the relevant token/username in `backend/.env`.                                      |
 | WakaTime times out (ETIMEDOUT)       | Network/IPv6 issue — the service already retries + caches. Tune via `WAKATIME_TIMEOUT_MS`, `WAKATIME_MAX_RETRIES`, `WAKATIME_CACHE_TTL_MS` in `backend/.env`. |
 | Sitemap/robots show wrong domain     | Set `VITE_DOMAIN` in `frontend/.env` and rebuild — they are generated from it.           |
 | `backend/` / `frontend/` folders empty after clone | They are submodules — run `git submodule update --init --recursive`.        |

@@ -48,7 +48,7 @@ export const BUSINESS_EMAIL = "garychen8899chen@gmail.com";
 export const CONTACT_PHONE = "";
 
 /** WhatsApp number in international format without "+" (for wa.me links). */
-export const WHATSAPP_NUMBER = "0895388733328";
+export const WHATSAPP_NUMBER = "62895388733328";
 
 /** X / Twitter handle (with leading @). */
 export const TWITTER_HANDLE = "@garychen";

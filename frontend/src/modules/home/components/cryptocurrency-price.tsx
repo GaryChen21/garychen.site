@@ -14,6 +14,12 @@ type DataType = {
   sol: Coin;
 };
 
+const FALLBACK_DATA: DataType = {
+  btc: { rate: 97000, delta: { month: 1.08 } },
+  eth: { rate: 3400, delta: { month: 1.04 } },
+  sol: { rate: 190, delta: { month: 0.97 } },
+};
+
 const CryptoCard = ({
   coin,
   name,
@@ -23,8 +29,9 @@ const CryptoCard = ({
   name: string;
   icon: string;
 }) => {
-  const isPositive = coin.delta.month > 1;
-  const changePercent = Math.abs((coin.delta.month - 1) * 100);
+  const monthDelta = coin?.delta?.month ?? 1;
+  const isPositive = monthDelta > 1;
+  const changePercent = Math.abs((monthDelta - 1) * 100);
 
   return (
     <div className="flex items-center gap-3 py-2 transition-all duration-200 hover:scale-[1.01]">
@@ -42,7 +49,7 @@ const CryptoCard = ({
             {name}
           </span>
           <span className="text-base font-bold text-neutral-800 dark:text-neutral-200">
-            ${coin.rate.toFixed(2)}
+            ${(coin?.rate ?? 0).toFixed(2)}
           </span>
         </div>
 
@@ -66,27 +73,31 @@ const CryptoCard = ({
 const CryptocurrencyPrice = () => {
   const [data, setData] = useState<DataType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isDisabled, setDisabled] = useState(false);
+  const [isFallback, setIsFallback] = useState(false);
 
   useEffect(() => {
+    let isActive = true;
+
     const fetchData = async () => {
-      setIsLoading(true);
       const newData = await getCoins();
 
-      if (newData === null) {
-        setDisabled(true);
-      } else {
+      if (!isActive) return;
+
+      if (newData) {
         setData(newData);
+      } else {
+        setData(FALLBACK_DATA);
+        setIsFallback(true);
       }
       setIsLoading(false);
     };
 
     fetchData();
-  }, []);
 
-  if (isDisabled) {
-    return null;
-  }
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   if (isLoading) {
     return (
@@ -95,6 +106,8 @@ const CryptocurrencyPrice = () => {
       </div>
     );
   }
+
+  const coins = data ?? FALLBACK_DATA;
 
   return (
     <div className="space-y-3">
@@ -108,30 +121,28 @@ const CryptocurrencyPrice = () => {
       </div>
 
       <div className="space-y-2">
-        {data && (
-          <>
-            <CryptoCard
-              coin={data.btc}
-              name="Bitcoin"
-              icon="/img/cryptocurrency/bitcoin.png"
-            />
-            <CryptoCard
-              coin={data.eth}
-              name="Ethereum"
-              icon="/img/cryptocurrency/etherium.png"
-            />
-            <CryptoCard
-              coin={data.sol}
-              name="Solana"
-              icon="/img/cryptocurrency/solana.png"
-            />
-          </>
-        )}
+        <CryptoCard
+          coin={coins.btc}
+          name="Bitcoin"
+          icon="/img/cryptocurrency/bitcoin.png"
+        />
+        <CryptoCard
+          coin={coins.eth}
+          name="Ethereum"
+          icon="/img/cryptocurrency/etherium.png"
+        />
+        <CryptoCard
+          coin={coins.sol}
+          name="Solana"
+          icon="/img/cryptocurrency/solana.png"
+        />
       </div>
 
       <div className="mt-3 pt-3 border-t border-neutral-200 dark:border-neutral-700">
         <p className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
-          Prices are served from our own backend
+          {isFallback
+            ? "Offline market data — live backend unavailable"
+            : "Prices are served from our own backend"}
         </p>
       </div>
     </div>
@@ -145,7 +156,8 @@ const CryptocurrencyPrice = () => {
 async function getCoins(): Promise<DataType | null> {
   try {
     const res = await axios.get(
-      `${import.meta.env.VITE_API_BASE_URL}/v1/crypto`
+      `${import.meta.env.VITE_API_BASE_URL}/v1/crypto`,
+      { timeout: 8000 }
     );
 
     const payload = res.data?.data;
