@@ -71,6 +71,7 @@ export const SOCIAL_LINKS = {
 
 /** Resume PDF paths (served from /public). */
 export const RESUME = {
+  cv: "/pdf/Gary_Chen_CV.pdf",
   creativeEn: "/pdf/Gary_Chen-Creative_Resume-en.pdf",
   creativeId: "/pdf/Gary_Chen-Creative_Resume-id.pdf",
   atsEn: "/pdf/Gary_Chen-Resume-en.pdf",

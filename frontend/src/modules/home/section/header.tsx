@@ -1,12 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
 import gsap from "gsap";
-import { TbArrowDown, TbBrandGithub, TbBrandLinkedin, TbBrandThreads, TbBrandWhatsapp, TbMail } from "react-icons/tb";
+import { TbArrowDown, TbBrandGithub, TbBrandLinkedin, TbBrandThreads, TbBrandWhatsapp, TbDownload, TbMail } from "react-icons/tb";
 import { ContainerContext } from "@/context/ContainerProvider";
 import MetadataConfig from "@/config/Metadata";
 import {
   SOCIAL_LINKS,
   BUSINESS_EMAIL,
+  RESUME,
   whatsappUrl,
   mailtoUrl,
 } from "@/config/Identity";
@@ -144,6 +145,23 @@ export default function Header() {
               ))}
             </div>
           </div>
+          {/* Download CV */}
+          <motion.div
+            initial={isTiny ? {} : { opacity: 0, y: 30 }}
+            animate={isTiny ? {} : { opacity: 1, y: 0 }}
+            transition={isTiny ? {} : { duration: 1, delay: 1.4 }}
+            className="z-20 flex items-center justify-center mt-4 md:mt-6"
+          >
+            <a
+              href={RESUME.cv}
+              download="Gary_Chen_CV.pdf"
+              aria-label="Download CV (PDF)"
+              className="group flex items-center gap-2 rounded-full bg-neutral-900 dark:bg-white px-6 py-3 text-sm md:text-base font-semibold text-white dark:text-neutral-900 shadow-lg shadow-black/10 dark:shadow-white/10 transition-all duration-300 hover:scale-105 hover:bg-neutral-700 dark:hover:bg-neutral-200 active:scale-95"
+            >
+              <TbDownload className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-0.5" />
+              Download CV
+            </a>
+          </motion.div>
           <motion.div
             initial={isTiny ? {} : { opacity: 0, y: 50 }}
             animate={isTiny ? {} : { opacity: 1, y: 0 }}
