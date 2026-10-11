@@ -153,6 +153,9 @@ export const Whatsapp = ({ className }: iconProps) => (
 export const Telegram = ({ className }: iconProps) => (
   <Icons.SiTelegram className={`fill-[#26A5E4] ${className}`} />
 );
+export const HackerNews = ({ className }: iconProps) => (
+  <Icons.SiYcombinator className={`fill-[#FF6600] ${className}`} />
+);
 export const Threads = ({ className }: iconProps) => (
   <Icons.SiThreads className={`fill-stone-950 dark:fill-white ${className}`} />
 );

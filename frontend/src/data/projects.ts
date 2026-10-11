@@ -3,13 +3,12 @@ import type { ComponentType } from "react";
 import {
   Figma,
   Gradio,
+  HackerNews,
   Html5,
   Jupyter,
   Openai,
   Opencv,
   Python,
-  Postgresql,
-  Google,
   Telegram,
   Threads,
   BusinessAnalysis,
@@ -155,6 +154,8 @@ export const Projects: Array<Project> = [
     category: "AI & Automation",
     description:
       "TechSignal Intelligence is an automated analytics platform that captures real-time technology discussions from Hacker News. As the AI Engineer for this team project, I developed a Telegram bot to trigger the pipeline and integrated a custom LLM API to analyze emerging trends and community sentiment. I also designed a robust partial-failure recovery mechanism, ensuring raw data is preserved even when AI analysis timeouts occur. The processed data is then loaded into PostgreSQL and feeds into a full analytics stack—spanning Apache Spark, Google BigQuery, and Tableau—managed collaboratively to deliver end-to-end actionable trend intelligence.",
+    urlDirect: "./img/projects/techsignal-demo.mp4",
+    linkText: "Visit Video Demo",
     srcImage: "./img/projects/techsignal-intelligence.jpeg",
     tags: ["Hacker News", "Telegram Bot", "LLM", "Data Pipeline", "Sentiment Analysis", "Analytics"],
     icons: [
@@ -171,16 +172,8 @@ export const Projects: Array<Project> = [
         title: "LLM API",
       },
       {
-        SvgIcon: Postgresql,
-        title: "PostgreSQL",
-      },
-      {
-        SvgIcon: Google,
-        title: "Google BigQuery",
-      },
-      {
-        SvgIcon: BusinessAnalysis,
-        title: "Analytics & Tableau",
+        SvgIcon: HackerNews,
+        title: "HackerNews API",
       },
     ],
   },
